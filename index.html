@@ -1,95 +1,68 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
-  />
-  <title>Worm Colony • $WORM</title>
+  <meta charset="UTF-8" />
+  <title>Worm Colony — $WORM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
-  <!-- ROOT FILE PATHS (matches your repo) -->
-  <link rel="stylesheet" href="./styles.css?v=101" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-  <main class="app">
+  <div class="app">
 
     <!-- HEADER -->
-    <header class="topbar panel">
-      <div class="brand">
-        <div class="logoWrap">
-          <div class="logoGlyph"></div>
-        </div>
-        <div class="brandText">
-          <div class="brandTitle">Worm Colony</div>
-          <div class="brandSub">$WORM • LIVE COLONY</div>
-        </div>
+    <header class="topBar">
+      <div class="title">
+        <strong>Worm Colony</strong>
+        <span>$WORM · LIVE COLONY</span>
       </div>
-
-      <div class="statusChip">
-        <span class="dot"></span>
-        Simulation Active
+      <div class="status">
+        <span class="dot"></span> Simulation Active
       </div>
     </header>
 
-    <!-- SIMULATION (TOP, NO OVERLAY) -->
-    <section class="simWrap panel">
-      <div class="simHeader">
-        <span class="pill">$WORM</span>
-        <span class="muted">SIMULATION</span>
-      </div>
-
+    <!-- SIMULATION -->
+    <section class="simSection">
       <div class="simViewport">
-        <!-- IMPORTANT: ID MATCHES YOUR JS -->
         <canvas id="c"></canvas>
+      </div>
 
-        <div class="hint">
-          Tap colonies • Drag pan • Pinch zoom • Double tap center
-        </div>
+      <div class="simHint">
+        Tap colonies • Drag pan • Pinch zoom • Double tap center
       </div>
     </section>
 
-    <!-- STATUS + CONTROLS -->
-    <section class="grid2">
-
-      <!-- STATUS -->
-      <section class="panel">
-        <div class="sectionTitle">STATUS</div>
-
-        <div class="stats">
-          <div class="stat"><div class="k">Buyers</div><div class="v" id="buyers">0</div></div>
-          <div class="stat"><div class="k">Volume</div><div class="v" id="vol">$0</div></div>
-          <div class="stat"><div class="k">M Cap</div><div class="v" id="mcap">$0</div></div>
-          <div class="stat"><div class="k">Colonies</div><div class="v" id="cols">1</div></div>
-          <div class="stat"><div class="k">Worms</div><div class="v" id="worms">0</div></div>
-        </div>
-      </section>
-
-      <!-- CONTROLS -->
-      <section class="panel">
-        <div class="sectionTitle">CONTROLS</div>
-
-        <div class="btnGrid">
-          <button id="feedBtn" class="btn">Feed</button>
-          <button id="smallFeed" class="btn">Small Buy</button>
-          <button id="bigFeed" class="btn">Whale Buy</button>
-          <button id="sellBtn" class="btn">Sell-off</button>
-          <button id="stormBtn" class="btn">Volume Storm</button>
-          <button id="mutateBtn" class="btn">Mutate</button>
-          <button id="focusBtn" class="btn">Focus: Off</button>
-          <button id="zoomInBtn" class="btn">Zoom +</button>
-          <button id="zoomOutBtn" class="btn">Zoom −</button>
-          <button id="captureBtn" class="btn">Capture</button>
-          <button id="resetBtn" class="btn danger">Reset</button>
-        </div>
-      </section>
-
+    <!-- STATUS -->
+    <section class="panel">
+      <div class="stats">
+        <div class="stat"><label>Buyers</label><span id="buyers">0</span></div>
+        <div class="stat"><label>Volume</label><span id="volume">$0</span></div>
+        <div class="stat"><label>M Cap</label><span id="mcap">$0</span></div>
+        <div class="stat"><label>Colonies</label><span id="colonies">1</span></div>
+        <div class="stat"><label>Worms</label><span id="worms">0</span></div>
+      </div>
     </section>
 
-  </main>
+    <!-- CONTROLS -->
+    <section class="panel">
+      <div class="controls">
+        <button>Feed</button>
+        <button>Small Buy</button>
+        <button>Whale Buy</button>
+        <button>Sell-off</button>
+        <button>Volume Storm</button>
+        <button>Mutate</button>
+        <button>Focus: Off</button>
+        <button>Zoom +</button>
+        <button>Zoom −</button>
+        <button>Capture</button>
+        <button class="danger">Reset</button>
+      </div>
+    </section>
 
-  <!-- SCRIPT MUST BE LAST -->
-  <script src="./script.js?v=101"></script>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
