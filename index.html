@@ -5,16 +5,21 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
   <title>Worm Colony • $WORM</title>
 
-  <!-- cache-bust so GitHub Pages/iPhone doesn't keep old CSS -->
-  <link rel="stylesheet" href="./styles.css?v=wc-1" />
+  <link rel="stylesheet" href="./assets/css/styles.css?v=layout-fix-1">
 </head>
 
 <body>
   <div class="app">
+
+    <!-- HEADER -->
     <header>
       <div class="brand">
         <div class="logoWrap">
-          <img id="logoImg" src="https://i.postimg.cc/hGj8JD0V/1614F03F-52AD-453C-8DB1-09A3B29F3469.png" alt="Worm Colony logo">
+          <img
+            id="logoImg"
+            src="https://i.postimg.cc/hGj8JD0V/1614F03F-52AD-453C-8DB1-09A3B29F3469.png"
+            alt="Worm Colony logo"
+          />
         </div>
         <div class="brandText">
           <div class="brandName">Worm Colony</div>
@@ -28,61 +33,64 @@
       </div>
     </header>
 
-    <div class="main">
-      <div class="simShell">
-        <canvas id="c"></canvas>
+    <!-- MAIN -->
+    <main class="main">
 
-        <div class="hud">
-          <div class="glass">
-            <div class="statsGrid">
-              <div class="stat"><div class="k">BUYERS</div><div class="v" id="buyers">0</div></div>
-              <div class="stat"><div class="k">VOLUME</div><div class="v" id="vol">$0</div></div>
-              <div class="stat"><div class="k">M CAP</div><div class="v" id="mcap">$0</div></div>
-              <div class="stat"><div class="k">COLONIES</div><div class="v" id="cols">1</div></div>
-              <div class="stat"><div class="k">WORMS</div><div class="v" id="worms">0</div></div>
-            </div>
+      <!-- SIMULATION FIRST -->
+      <section class="simShell">
+        <div class="simViewport">
+          <canvas id="c"></canvas>
+          <div class="hint">
+            Tap colonies • Drag pan • Pinch zoom • Double tap center
           </div>
+        </div>
+      </section>
 
-          <div class="glass">
-            <div class="btnGrid">
-              <button id="feedBtn" class="btn primary">Feed</button>
-              <button id="smallFeed" class="btn">Small Buy</button>
-              <button id="bigFeed" class="btn">Whale Buy</button>
-              <button id="sellBtn" class="btn">Sell-off</button>
-              <button id="stormBtn" class="btn">Volume Storm</button>
-              <button id="mutateBtn" class="btn">Mutate</button>
-              <button id="focusBtn" class="btn">Focus: Off</button>
-              <button id="zoomInBtn" class="btn">Zoom +</button>
-              <button id="zoomOutBtn" class="btn">Zoom −</button>
-              <button id="captureBtn" class="btn primary">Capture</button>
-              <button id="resetBtn" class="btn danger">Reset</button>
-            </div>
+      <!-- UI BELOW -->
+      <section class="controlShell">
+
+        <div class="glass">
+          <div class="statsGrid">
+            <div class="stat"><div class="k">BUYERS</div><div class="v" id="buyers">0</div></div>
+            <div class="stat"><div class="k">VOLUME</div><div class="v" id="vol">$0</div></div>
+            <div class="stat"><div class="k">M CAP</div><div class="v" id="mcap">$0</div></div>
+            <div class="stat"><div class="k">COLONIES</div><div class="v" id="cols">1</div></div>
+            <div class="stat"><div class="k">WORMS</div><div class="v" id="worms">0</div></div>
           </div>
         </div>
 
-        <div class="focusPanel" id="focusPanel">
-          <div class="fpTitle">COLONY FOCUS</div>
-          <div class="fpRow"><span class="fpL">Colony</span><span id="fpSelected">#1</span></div>
-          <div class="fpRow"><span class="fpL">DNA</span><span id="fpDNA">—</span></div>
-          <div class="fpRow"><span class="fpL">Biome</span><span id="fpBiome">—</span></div>
-          <div class="fpRow"><span class="fpL">Style</span><span id="fpStyle">—</span></div>
+        <div class="glass">
+          <div class="btnGrid">
+            <button id="feedBtn" class="btn primary">Feed</button>
+            <button id="smallFeed" class="btn">Small Buy</button>
+            <button id="bigFeed" class="btn">Whale Buy</button>
+            <button id="sellBtn" class="btn">Sell-off</button>
+            <button id="stormBtn" class="btn">Volume Storm</button>
+            <button id="mutateBtn" class="btn">Mutate</button>
+            <button id="focusBtn" class="btn">Focus: Off</button>
+            <button id="zoomInBtn" class="btn">Zoom +</button>
+            <button id="zoomOutBtn" class="btn">Zoom −</button>
+            <button id="captureBtn" class="btn primary">Capture</button>
+            <button id="resetBtn" class="btn danger">Reset</button>
+          </div>
         </div>
 
-        <div class="hint">Tap colonies • Drag pan • Pinch zoom • Double tap center</div>
-      </div>
+      </section>
 
-      <aside>
-        <div class="panel">
-          <h3>Mutation Log</h3>
-          <div class="log" id="log"></div>
-        </div>
-      </aside>
+    </main>
+
+    <!-- FLOATING FOCUS PANEL -->
+    <div class="focusPanel" id="focusPanel">
+      <div class="fpTitle">COLONY FOCUS</div>
+      <div class="fpRow"><span class="fpL">Colony</span><span id="fpSelected">#1</span></div>
+      <div class="fpRow"><span class="fpL">DNA</span><span id="fpDNA">—</span></div>
+      <div class="fpRow"><span class="fpL">Biome</span><span id="fpBiome">—</span></div>
+      <div class="fpRow"><span class="fpL">Style</span><span id="fpStyle">—</span></div>
     </div>
 
     <div class="toast" id="toast"></div>
   </div>
 
-  <!-- cache-bust JS too -->
-  <script src="./script.js?v=wc-1"></script>
+  <script src="./assets/js/script.js?v=layout-fix-1"></script>
 </body>
 </html>
