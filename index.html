@@ -2,95 +2,111 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Worm Colony • $WORM</title>
 
-  <link rel="stylesheet" href="./assets/css/styles.css?v=layout-fix-1">
+  <!-- MUST match your folders -->
+  <link rel="stylesheet" href="./assets/css/styles.css?v=wc-20260108-1">
 </head>
 
 <body>
   <div class="app">
 
-    <!-- HEADER -->
-    <header>
+    <header class="topbar glass">
       <div class="brand">
-        <div class="logoWrap">
+        <div class="logoBox" aria-hidden="true">
           <img
             id="logoImg"
             src="https://i.postimg.cc/hGj8JD0V/1614F03F-52AD-453C-8DB1-09A3B29F3469.png"
             alt="Worm Colony logo"
+            loading="eager"
           />
         </div>
         <div class="brandText">
-          <div class="brandName">Worm Colony</div>
-          <div class="brandTicker">$WORM • LIVE COLONY</div>
+          <div class="title">Worm Colony</div>
+          <div class="sub">$WORM • LIVE COLONY</div>
         </div>
       </div>
 
-      <div class="rightMeta">
-        <div class="chip"><span class="dot"></span> Simulation Active</div>
-        <div class="smallText">Growth driven by buyers, volume, and market cap.</div>
+      <div class="status">
+        <div class="chip">
+          <span class="dot"></span>
+          <span>SIMULATION ACTIVE</span>
+        </div>
+        <div class="micro">Growth driven by buyers, volume, and market cap.</div>
       </div>
     </header>
 
-    <!-- MAIN -->
-    <main class="main">
+    <!-- SIMULATION TOP -->
+    <section class="simWrap glass">
+      <div class="simViewport">
+        <canvas id="c"></canvas>
 
-      <!-- SIMULATION FIRST -->
-      <section class="simShell">
-        <div class="simViewport">
-          <canvas id="c"></canvas>
-          <div class="hint">
-            Tap colonies • Drag pan • Pinch zoom • Double tap center
-          </div>
-        </div>
-      </section>
-
-      <!-- UI BELOW -->
-      <section class="controlShell">
-
-        <div class="glass">
-          <div class="statsGrid">
-            <div class="stat"><div class="k">BUYERS</div><div class="v" id="buyers">0</div></div>
-            <div class="stat"><div class="k">VOLUME</div><div class="v" id="vol">$0</div></div>
-            <div class="stat"><div class="k">M CAP</div><div class="v" id="mcap">$0</div></div>
-            <div class="stat"><div class="k">COLONIES</div><div class="v" id="cols">1</div></div>
-            <div class="stat"><div class="k">WORMS</div><div class="v" id="worms">0</div></div>
+        <div class="simHud">
+          <div class="hudRow">
+            <div class="pill" id="sigPill">
+              <span class="pillK">COLONY SIGNATURE</span>
+              <span class="pillV" id="signature">WORM-XXXX-XXXX</span>
+            </div>
+            <div class="pill" id="dnaPill">
+              <span class="pillK">DNA</span>
+              <span class="pillV" id="dnaBadge">—</span>
+            </div>
           </div>
         </div>
 
-        <div class="glass">
-          <div class="btnGrid">
-            <button id="feedBtn" class="btn primary">Feed</button>
-            <button id="smallFeed" class="btn">Small Buy</button>
-            <button id="bigFeed" class="btn">Whale Buy</button>
-            <button id="sellBtn" class="btn">Sell-off</button>
-            <button id="stormBtn" class="btn">Volume Storm</button>
-            <button id="mutateBtn" class="btn">Mutate</button>
-            <button id="focusBtn" class="btn">Focus: Off</button>
-            <button id="zoomInBtn" class="btn">Zoom +</button>
-            <button id="zoomOutBtn" class="btn">Zoom −</button>
-            <button id="captureBtn" class="btn primary">Capture</button>
-            <button id="resetBtn" class="btn danger">Reset</button>
-          </div>
+        <div class="hint">
+          Tap colonies • Drag pan • Pinch zoom • Double tap center
         </div>
+      </div>
+    </section>
 
-      </section>
+    <!-- UI BELOW (no overlay) -->
+    <section class="uiWrap">
+      <div class="glass statsCard">
+        <div class="statsGrid">
+          <div class="stat"><div class="k">BUYERS</div><div class="v" id="buyers">0</div></div>
+          <div class="stat"><div class="k">VOLUME</div><div class="v" id="vol">$0</div></div>
+          <div class="stat"><div class="k">M CAP</div><div class="v" id="mcap">$25,000</div></div>
+          <div class="stat"><div class="k">COLONIES</div><div class="v" id="cols">1</div></div>
+          <div class="stat"><div class="k">WORMS</div><div class="v" id="worms">0</div></div>
+        </div>
+      </div>
 
-    </main>
+      <div class="glass controlsCard">
+        <div class="btnGrid">
+          <button class="btn primary" id="feedBtn">FEED</button>
+          <button class="btn" id="smallBtn">SMALL BUY</button>
 
-    <!-- FLOATING FOCUS PANEL -->
-    <div class="focusPanel" id="focusPanel">
-      <div class="fpTitle">COLONY FOCUS</div>
-      <div class="fpRow"><span class="fpL">Colony</span><span id="fpSelected">#1</span></div>
-      <div class="fpRow"><span class="fpL">DNA</span><span id="fpDNA">—</span></div>
-      <div class="fpRow"><span class="fpL">Biome</span><span id="fpBiome">—</span></div>
-      <div class="fpRow"><span class="fpL">Style</span><span id="fpStyle">—</span></div>
-    </div>
+          <button class="btn" id="whaleBtn">WHALE BUY</button>
+          <button class="btn" id="sellBtn">SELL-OFF</button>
+
+          <button class="btn" id="stormBtn">VOLUME STORM</button>
+          <button class="btn neon" id="mutateBtn">MUTATE</button>
+
+          <button class="btn" id="focusBtn">FOCUS: OFF</button>
+          <button class="btn" id="zoomInBtn">ZOOM +</button>
+
+          <button class="btn" id="zoomOutBtn">ZOOM −</button>
+          <button class="btn primary" id="captureBtn">CAPTURE</button>
+
+          <button class="btn danger" id="resetBtn">RESET</button>
+        </div>
+      </div>
+
+      <div class="glass logCard">
+        <div class="logHead">
+          <div class="logTitle">Mutation Log</div>
+          <div class="logMeta">Capped + auto-merged spam</div>
+        </div>
+        <div class="logList" id="logList"></div>
+      </div>
+    </section>
 
     <div class="toast" id="toast"></div>
   </div>
 
-  <script src="./assets/js/script.js?v=layout-fix-1"></script>
+  <!-- MUST match your folders -->
+  <script src="./assets/js/script.js?v=wc-20260108-1"></script>
 </body>
 </html>
