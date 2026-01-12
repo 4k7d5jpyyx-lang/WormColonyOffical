@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Worm Colony — $WORM</title>
+
+  <link rel="preconnect" href="https://i.postimg.cc" crossorigin>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <img class="brandLogo" id="brandLogo"
+          src="https://i.postimg.cc/hGj8JD0V/1614F03F-52AD-453C-8DB1-09A3B29F3469.png"
+          alt="Worm Colony Logo" />
+        <div class="brandText">
+          <div class="title">Worm Colony</div>
+          <div class="sub">$WORM • LIVE COLONY</div>
+        </div>
+      </div>
+
+      <div class="statusPill">
+        <span class="dot"></span>
+        <span id="simStatus">Live Mode</span>
+      </div>
+    </header>
+
+    <main class="stack">
+      <!-- LIVE CANVAS -->
+      <section class="card simCard">
+        <div class="simWrap">
+          <canvas id="simCanvas"></canvas>
+
+          <!-- Overlay: Colony Inspector -->
+          <div class="inspector" id="inspector" aria-label="Colony inspector">
+            <div class="inspectorTop">
+              <div class="inspectorTitle">
+                <span class="pill">Inspect</span>
+                <span id="selName">Colony #1</span>
+              </div>
+              <button class="iconBtn" id="toggleInspector" type="button" title="Hide/Show">▾</button>
+            </div>
+
+            <div class="inspectorBody" id="inspectorBody">
+              <div class="grid2">
+                <div class="kv">
+                  <div class="k">DNA</div>
+                  <div class="v" id="dnaVal">—</div>
+                </div>
+                <div class="kv">
+                  <div class="k">Temperament</div>
+                  <div class="v" id="tempVal">—</div>
+                </div>
+                <div class="kv">
+                  <div class="k">Biome</div>
+                  <div class="v" id="biomeVal">—</div>
+                </div>
+                <div class="kv">
+                  <div class="k">Style</div>
+                  <div class="v" id="styleVal">—</div>
+                </div>
+              </div>
+
+              <div class="mutBox">
+                <div class="mutHdr">Recent Mutations</div>
+                <div class="mutList" id="mutList"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Overlay: debug toast -->
+          <div class="toast" id="toast">Loading…</div>
+        </div>
+
+        <div class="hint">
+          Tap colonies • Drag pan • Pinch zoom • Double tap center • Live trade triggers
+        </div>
+      </section>
+
+      <!-- STATS + EVENTS -->
+      <section class="card statsCard">
+        <div class="statsGrid">
+          <div class="stat">
+            <div class="label">Buyers</div>
+            <div class="value" id="buyers">0</div>
+          </div>
+          <div class="stat">
+            <div class="label">Volume</div>
+            <div class="value" id="volume">$0</div>
+          </div>
+          <div class="stat">
+            <div class="label">M Cap</div>
+            <div class="value" id="mcap">$0</div>
+          </div>
+          <div class="stat">
+            <div class="label">Colonies</div>
+            <div class="value" id="colonies">1</div>
+          </div>
+          <div class="stat">
+            <div class="label">Worms</div>
+            <div class="value" id="worms">0</div>
+          </div>
+        </div>
+
+        <!-- Quick Focus (Option A) -->
+        <div class="quickFocusRow">
+          <button class="neonBtn alt wide" id="focusMiniBtn" type="button">Click to Focus: Off</button>
+          <div class="eventsHint" style="margin-top:8px;">Tap a colony to select it, then use Click to Focus to lock the camera.</div>
+        </div>
+
+        <div class="eventsHdr">
+          <div class="eventsTitle">
+            <span class="eventsDot"></span>
+            <span>Colony Events</span>
+          </div>
+          <div class="eventsHint">Live events from on-chain trades (spawns, mutations, bosses, milestones).</div>
+        </div>
+
+        <div class="eventLog" id="eventLog" aria-label="Simulation event log"></div>
+      </section>
+
+      
+  <!-- CONTROLS -->
+  <section class="card controlsCard">
+    <div class="btnGrid">
+      <button class="neonBtn" data-action="focus" id="focusBtn">Focus: Off</button>
+      <button class="neonBtn alt" data-action="zoomIn">Zoom +</button>
+
+      <button class="neonBtn alt" data-action="zoomOut">Zoom −</button>
+      <button class="neonBtn" data-action="capture">Capture</button>
+
+      <button class="neonBtn danger wide" data-action="reset">Reset (Local)</button>
+    </div>
+
+    <div class="eventsHint" style="margin-top:10px;">
+      Live mode: buys/sells trigger colony mechanics automatically.
+    </div>
+  </section>
+</main>
+
+    <footer class="foot">
+      <span>© Worm Colony</span>
+    </footer>
+  </div>
+
+  <script src="script.js" defer></script>
+  <script src="live.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
