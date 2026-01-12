@@ -257,6 +257,100 @@
   let volume = 0;
   let mcap = 0;
 
+
+// ===========================
+// LIVE BUY TRACKING (Helius -> Cloudflare Worker -> Website)
+// ===========================
+// Your Cloudflare Worker base URL (no trailing slash)
+const WORKER_BASE_URL = "https://heliuswebhook.nf5w8v8d4k.workers.dev";
+
+// Token mint to count as a "buy" for growth (from your webhook payload)
+const TARGET_TOKEN_MINT = "6jKn8hRBvdHZ3AnVNECnKgnLn655AwyNF3EvH9uRpump";
+
+// Poll interval (ms). 3000-8000 is a good range.
+const LIVE_POLL_MS = 5000;
+
+// Live stats cache
+const live = {
+  totalBuys: 0,
+  lastBuyAt: null,
+  // helps us detect new buys since last poll
+  _lastSeenTotal: 0,
+  _started: false,
+};
+
+async function fetchLiveStats() {
+  try {
+    // Try /stats first (recommended)
+    let url = `${WORKER_BASE_URL}/stats?mint=${encodeURIComponent(TARGET_TOKEN_MINT)}`;
+    let res = await fetch(url, { cache: "no-store" });
+
+    // Fallbacks if your worker uses different paths
+    if (!res.ok) {
+      url = `${WORKER_BASE_URL}/buys?mint=${encodeURIComponent(TARGET_TOKEN_MINT)}`;
+      res = await fetch(url, { cache: "no-store" });
+    }
+
+    if (!res.ok) return;
+
+    const data = await res.json();
+    if (!data || typeof data.totalBuys !== "number") return;
+
+    applyLiveStats(data);
+  } catch (e) {
+    // silent fail (offline / temporary worker issue)
+  }
+}
+
+function applyLiveStats(data) {
+  // normalize
+  live.totalBuys = Math.max(0, Math.floor(data.totalBuys || 0));
+  live.lastBuyAt = data.lastBuyAt ?? data.lastBuyAtMs ?? data.lastBuyAtISO ?? null;
+
+  if (!live._started) {
+    live._started = true;
+    live._lastSeenTotal = live.totalBuys;
+  }
+
+  // If new buys happened, trigger growth burst(s)
+  const delta = Math.max(0, live.totalBuys - live._lastSeenTotal);
+  if (delta > 0) {
+    onNewBuys(delta);
+    live._lastSeenTotal = live.totalBuys;
+  }
+
+  // Keep your existing mechanics, but make "buyers" reflect real buys.
+  // This makes worm growth tied to real buys without you touching other logic.
+  buyers = Math.max(buyers, live.totalBuys);
+}
+
+function onNewBuys(delta) {
+  // Light-touch: each new buy adds worms + a visual pulse.
+  // (Caps so a big burst doesn't freeze mobile)
+  const c = colonies[selected] || colonies[0];
+  const spawnCount = Math.min(8, delta);
+
+  // a little bump to metrics so your UI still feels alive
+  volume = Math.min(1_000_000, volume + delta * 1.2);
+  mcap = Math.min(1_000_000, mcap + delta * 2.5);
+
+  for (let i = 0; i < spawnCount; i++) {
+    const pos = {
+      x: c.cx + randRange(-40, 40),
+      y: c.cy + randRange(-40, 40),
+    };
+    c.worms.push(newWorm(c, pos, "adult"));
+  }
+
+  // visual pulse
+  shockwave(c, 1.0, 120);
+}
+
+// Start polling for live buys
+setInterval(fetchLiveStats, LIVE_POLL_MS);
+// small delay so everything initializes first
+setTimeout(fetchLiveStats, 800);
+
   // REQUESTED LIMITS
   const MAX_COLONIES = 500;
   const MAX_WORMS = 9999;
