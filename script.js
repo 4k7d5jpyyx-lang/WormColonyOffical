@@ -2579,3 +2579,37 @@ setTimeout(() => {
     console.warn("[LIVE] No live data yet – continuing simulation mode");
   }
 }, 15000);
+window.spawnLiveWorm = function () {
+  const c = colonies[0];
+  if (!c) return;
+  c.worms.push(newWorm(c, false));
+};
+
+window.spawnLiveColony = function () {
+  if (colonies.length >= MAX_COLONIES) return;
+  const base = colonies[0];
+  const ang = Math.random() * Math.PI * 2;
+  const dist = 420 + Math.random() * 260;
+  const c = newColony(
+    base.x + Math.cos(ang) * dist,
+    base.y + Math.sin(ang) * dist,
+    Math.random() * 360
+  );
+  colonies.push(c);
+};
+
+window.spawnLiveBoss = function () {
+  const c = colonies[0];
+  if (!c) return;
+  const bossTypes = [
+    "SOL_STORM",
+    "FIRE_DOGE",
+    "ICE_QUEEN",
+    "HYDRAWORM",
+    "EVENT_HORIZON"
+  ];
+  const type = bossTypes[Math.floor(Math.random() * bossTypes.length)];
+  const boss = newWorm(c, true, type);
+  c.worms.push(boss);
+  triggerBossCinematic(boss, bossLabel(type));
+};
